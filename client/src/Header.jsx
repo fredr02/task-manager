@@ -1,7 +1,18 @@
 import React from 'react';
 
 const Header = () => {
-  const time = new Date().getHours();
+  const WEEKDAYS = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+  const DATE = new Date();
+  const CURRENTHOUR = DATE.getHours();
+  const dayOfWeek = WEEKDAYS[DATE.getDay()];
 
   return (
     <div className="flex flex-col ">
@@ -11,7 +22,7 @@ const Header = () => {
         </button>
       </div>
       <h1 className="block text-6xl text-primary">
-        {time <= 12 ? (
+        {CURRENTHOUR <= 12 ? (
           <span>
             Good <br /> Morning!
           </span>
@@ -21,6 +32,16 @@ const Header = () => {
           </span>
         )}
       </h1>
+      <div className="flex justify-between mt-5">
+        <div className="text-white">
+          <h3>{`Today's ${dayOfWeek}`}</h3>
+          <p className="text-gray text-sm">Dec 12, 2022</p>
+        </div>
+        <div className="text-white text-right">
+          <h3 className="font-light">75% Done</h3>
+          <p className="text-gray">Completed Tasks</p>
+        </div>
+      </div>
     </div>
   );
 };
