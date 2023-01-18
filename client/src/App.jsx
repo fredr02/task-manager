@@ -1,9 +1,15 @@
-import { useState } from 'react';
+import React from 'react';
 
-function App() {
-  const [count, setCount] = useState(0);
+import Header from './Header';
+import Tasklist from './Tasklist';
 
-  return <div>Hello world!</div>;
-}
+const App = () => {
+  return (
+    <>
+      <Header />
+      <Tasklist />
+    </>
+  );
+};
 
 export default App;
