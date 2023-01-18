@@ -17,7 +17,7 @@ const Header = () => {
   return (
     <div className="flex flex-col ">
       <div className="flex flex-1 justify-end">
-        <button className="text-white bg-[#172841] w-10 h-10 p-3 m-3 rounded-full">
+        <button className="text-white bg-[#172841] w-10 h-10 p-3 m-3 rounded-full leading-none">
           +
         </button>
       </div>
