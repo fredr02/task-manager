@@ -52,7 +52,7 @@ const Header = ({ tasks }) => {
             </span>
           )}
         </h1>
-        <button className="text-white bg-[#172841] w-12 h-12 p-3 m-3 rounded-full leading-none">
+        <button className="text-white bg-[#172841] hover:bg-[#283951] w-12 h-12 p-3 m-3 rounded-full leading-none">
           +
         </button>
       </div>
