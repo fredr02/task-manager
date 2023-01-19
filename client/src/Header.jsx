@@ -15,23 +15,23 @@ const Header = () => {
   const dayOfWeek = WEEKDAYS[DATE.getDay()];
 
   return (
-    <div className="flex flex-col ">
-      <div className="flex flex-1 justify-end">
-        <button className="text-white bg-[#172841] w-10 h-10 p-3 m-3 rounded-full leading-none">
+    <div className="flex flex-col">
+      <div className="flex flex-row justify-between">
+        <h1 className="block text-6xl text-primary">
+          {CURRENTHOUR <= 12 ? (
+            <span>
+              Good <br /> Morning!
+            </span>
+          ) : (
+            <span>
+              Good <br /> Afternoon!
+            </span>
+          )}
+        </h1>
+        <button className="text-white bg-[#172841] w-12 h-12 p-3 m-3 rounded-full leading-none">
           +
         </button>
       </div>
-      <h1 className="block text-6xl text-primary">
-        {CURRENTHOUR <= 12 ? (
-          <span>
-            Good <br /> Morning!
-          </span>
-        ) : (
-          <span>
-            Good <br /> Afternoon!
-          </span>
-        )}
-      </h1>
       <div className="flex justify-between mt-5">
         <div className="text-white">
           <h3>{`Today's ${dayOfWeek}`}</h3>
