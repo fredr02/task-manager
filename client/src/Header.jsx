@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Header = () => {
+const Header = ({ tasks }) => {
   const WEEKDAYS = [
     'Sunday',
     'Monday',
@@ -10,15 +10,39 @@ const Header = () => {
     'Friday',
     'Saturday',
   ];
+  const MONTHS = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'June',
+    'July',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
   const DATE = new Date();
-  const CURRENTHOUR = DATE.getHours();
+  const year = DATE.getFullYear();
+  const month = DATE.getMonth();
+  const date = DATE.getDate();
+  const currentHour = DATE.getHours();
+
   const dayOfWeek = WEEKDAYS[DATE.getDay()];
+  const monthString = MONTHS[month];
+
+  let completeCount = 0;
+  tasks.forEach((task) => {
+    task.isComplete == true && (completeCount += 1);
+  });
 
   return (
     <div className="flex flex-col">
       <div className="flex flex-row justify-between">
         <h1 className="block text-6xl text-primary">
-          {CURRENTHOUR <= 12 ? (
+          {currentHour <= 12 ? (
             <span>
               Good <br /> Morning!
             </span>
@@ -35,10 +59,14 @@ const Header = () => {
       <div className="flex justify-between mt-5">
         <div className="text-white">
           <h3>{`Today's ${dayOfWeek}`}</h3>
-          <p className="text-gray text-sm">Dec 12, 2022</p>
+          <p className="text-gray text-sm">
+            {monthString} {date}, {year}
+          </p>
         </div>
         <div className="text-white text-right">
-          <h3 className="font-light">75% Done</h3>
+          <h3 className="font-light">
+            {(completeCount / tasks.length) * 100}% Done
+          </h3>
           <p className="text-gray">Completed Tasks</p>
         </div>
       </div>
