@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 require('dotenv').config();
 
@@ -27,6 +28,7 @@ const todo = mongoose.model('todo', todoSchema);
 const app = express();
 app.listen(process.env.PORT);
 app.use(express.json());
+app.use(cors('*'));
 
 app.get('/', async (req, res) => {
   const response = await todo.find();

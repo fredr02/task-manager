@@ -2,39 +2,25 @@ import React, { useEffect, useState } from 'react';
 
 import Header from './Header';
 import Tasklist from './Tasklist';
+import Loading from './Loading';
 
 const App = () => {
-  const [taskList, setTaskList] = useState([
-    {
-      _id: '63c8854ebe8caa0a5094d449',
-      name: 'Watch Movie',
-      isComplete: true,
-      __v: 0,
-    },
-    {
-      _id: '63c8854fbe8caa0a5094d44b',
-      name: 'Work',
-      isComplete: false,
-      __v: 0,
-    },
-    {
-      _id: '63c88551be8caa0a5094d44d',
-      name: 'Kiss Wife',
-      isComplete: false,
-      __v: 0,
-    },
-    {
-      _id: '63c88554be8caa0a5094d44f',
-      name: 'Eat Kids',
-      isComplete: true,
-      __v: 0,
-    },
-  ]);
+  useEffect(() => {
+    (async () => {
+      const data = await fetch('http://localhost:3131', { method: 'GET' });
+      setTaskList(await data.json());
+      setIsLoading(false);
+    })();
+  }, []);
+  const [isLoading, setIsLoading] = useState(true);
+  const [taskList, setTaskList] = useState([]);
 
   return (
     <div className="flex flex-col mt-4 max-w-md sm:mx-auto mx-4">
-      <Header tasks={taskList} />
-      <Tasklist tasks={taskList} />
+      {isLoading && <Loading />}
+
+      {!isLoading && <Header tasks={taskList} />}
+      {!isLoading && <Tasklist tasks={taskList} />}
     </div>
   );
 };
