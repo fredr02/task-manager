@@ -42,12 +42,16 @@ app.post('/', async (req, res) => {
 });
 
 app.put('/:todoId', async (req, res) => {
+  let response;
   try {
-    await todo.findOneAndUpdate({ _id: req.params.todoId }, { ...req.body });
+    response = await todo.findOneAndUpdate(
+      { _id: req.params.todoId },
+      { ...req.body }
+    );
   } catch (err) {
     res.send(`Update Error: ${err}`);
   }
-  res.send('Update Sucess');
+  res.send(response);
 });
 
 app.delete('/:todoId', async (req, res) => {

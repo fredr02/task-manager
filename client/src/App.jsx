@@ -10,20 +10,58 @@ const App = () => {
       const data = await fetch(import.meta.env.VITE_API_BASE, {
         method: 'GET',
       });
-      setTaskList(await data.json());
+      const tasks = await data.json();
+      setTaskList(tasks);
+      setFilteredTasks(await tasks.sort((a, b) => a.isComplete - b.isComplete));
       setIsLoading(false);
     })();
   }, []);
 
   const [isLoading, setIsLoading] = useState(true);
   const [taskList, setTaskList] = useState([]);
+  const [filter, setFilter] = useState('all');
+
+  const [filteredTasks, setFilteredTasks] = useState([]);
+  console.log(filteredTasks);
+
+  const filterData = (filter) => {
+    filter == 'all' && setFilteredTasks(taskList);
+    filter == 'active' &&
+      setFilteredTasks(tasks.filter((task) => !task.isComplete));
+    setFilter(filter);
+  };
+
+  const updateTask = async (updatedTask) => {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_BASE}/${updatedTask._id}`,
+      {
+        method: 'PUT',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ ...updatedTask }),
+      }
+    );
+    setTaskList((prevTaskList) =>
+      prevTaskList.map((task) => {
+        if (task._id == updatedTask._id) return { ...updateTask };
+        return { ...task };
+      })
+    );
+    filterData(filter);
+  };
 
   return (
     <div className="flex flex-col mt-4 max-w-md sm:mx-auto mx-4">
       {isLoading && <Loading />}
 
       {!isLoading && <Header tasks={taskList} />}
-      {!isLoading && <Tasklist tasks={taskList} />}
+      {!isLoading && (
+        <Tasklist
+          tasks={filteredTasks}
+          filter={filter}
+          setFilter={setFilter}
+          updateTask={updateTask}
+        />
+      )}
     </div>
   );
 };
