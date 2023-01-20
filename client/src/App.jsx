@@ -7,7 +7,9 @@ import Loading from './Loading';
 const App = () => {
   useEffect(() => {
     (async () => {
-      const data = await fetch('http://localhost:3131', { method: 'GET' });
+      const data = await fetch(import.meta.env.VITE_API_BASE, {
+        method: 'GET',
+      });
       setTaskList(await data.json());
       setIsLoading(false);
     })();
