@@ -12,13 +12,11 @@ const Tasklist = ({ tasks }) => {
     tasks.sort((a, b) => a.isComplete - b.isComplete)
   );
 
-  const allClickHandler = () => {
-    setFilteredTasks(tasks);
-    setFilter('all');
-  };
-  const activeClickHandler = () => {
-    setFilteredTasks(tasks.filter((task) => !task.isComplete));
-    setFilter('active');
+  const filterClickHandler = (filter) => {
+    filter == 'all' && setFilteredTasks(tasks);
+    filter == 'active' &&
+      setFilteredTasks(tasks.filter((task) => !task.isComplete));
+    setFilter(filter);
   };
 
   return (
@@ -31,7 +29,7 @@ const Tasklist = ({ tasks }) => {
         <div>
           <button
             className={filter == 'active' ? enabled : disabled}
-            onClick={activeClickHandler}
+            onClick={() => filterClickHandler('active')}
           >
             Active
           </button>
@@ -39,7 +37,7 @@ const Tasklist = ({ tasks }) => {
             className={` ${
               filter == 'all' ? enabled : disabled
             } ml-2 min-w-[75px]`}
-            onClick={allClickHandler}
+            onClick={() => filterClickHandler('all')}
           >
             All
           </button>
