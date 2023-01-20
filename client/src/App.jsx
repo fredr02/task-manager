@@ -12,6 +12,7 @@ const App = () => {
       setIsLoading(false);
     })();
   }, []);
+
   const [isLoading, setIsLoading] = useState(true);
   const [taskList, setTaskList] = useState([]);
 

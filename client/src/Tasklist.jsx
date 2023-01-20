@@ -1,14 +1,25 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 
 import Task from './Task';
 
 const Tasklist = ({ tasks }) => {
-  const [filter, setFilter] = useState('active');
+  const [filter, setFilter] = useState('all');
   let enabled = 'bg-primary text-[black] rounded-full p-2 box-border';
   let disabled = 'bg-[#0e1621] text-[white] rounded-full p-2 box-border';
 
-  const doneClickHandler = () => setFilter('done');
-  const activeClickHandler = () => setFilter('active');
+  const [filteredTasks, setFilteredTasks] = useState(
+    tasks.sort((a, b) => a.isComplete - b.isComplete)
+  );
+
+  const allClickHandler = () => {
+    setFilteredTasks(tasks);
+    setFilter('all');
+  };
+  const activeClickHandler = () => {
+    setFilteredTasks(tasks.filter((task) => !task.isComplete));
+    setFilter('active');
+  };
 
   return (
     <div className="flex flex-col mt-5 gap-4">
@@ -25,15 +36,17 @@ const Tasklist = ({ tasks }) => {
             Active
           </button>
           <button
-            className={`${filter == 'done' ? enabled : disabled} ml-2`}
-            onClick={doneClickHandler}
+            className={` ${
+              filter == 'all' ? enabled : disabled
+            } ml-2 min-w-[75px]`}
+            onClick={allClickHandler}
           >
-            Done
+            All
           </button>
         </div>
       </div>
       <hr className="border-white"></hr>
-      {tasks.map((task, index) => (
+      {filteredTasks.map((task, index) => (
         <Task key={task._id} task={task} index={index} />
       ))}
     </div>
