@@ -12,7 +12,7 @@ const App = () => {
       });
       const tasks = await data.json();
       setTaskList(tasks);
-      setFilteredTasks(await tasks.sort((a, b) => a.isComplete - b.isComplete));
+      setFilteredTasks(tasks.sort((a, b) => a.isComplete - b.isComplete));
       setIsLoading(false);
     })();
   }, []);
@@ -22,10 +22,9 @@ const App = () => {
   const [filter, setFilter] = useState('all');
 
   const [filteredTasks, setFilteredTasks] = useState([]);
-  console.log(filteredTasks);
 
-  const filterData = (filter) => {
-    filter == 'all' && setFilteredTasks(taskList);
+  const filterData = (filter, tasks) => {
+    filter == 'all' && setFilteredTasks(tasks);
     filter == 'active' &&
       setFilteredTasks(tasks.filter((task) => !task.isComplete));
     setFilter(filter);
@@ -40,13 +39,15 @@ const App = () => {
         body: JSON.stringify({ ...updatedTask }),
       }
     );
-    setTaskList((prevTaskList) =>
-      prevTaskList.map((task) => {
-        if (task._id == updatedTask._id) return { ...updateTask };
+
+    setTaskList((prevTaskList) => {
+      const newList = prevTaskList.map((task) => {
+        if (task._id == updatedTask._id) return { ...updatedTask };
         return { ...task };
-      })
-    );
-    filterData(filter);
+      });
+      filterData(filter, newList);
+      return newList;
+    });
   };
 
   return (
