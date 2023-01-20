@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { MdAddTask } from 'react-icons/md';
+
 const Header = ({ tasks }) => {
   const WEEKDAYS = [
     'Sunday',
@@ -52,8 +54,8 @@ const Header = ({ tasks }) => {
             </span>
           )}
         </h1>
-        <button className="text-white bg-[#172841] hover:bg-[#283951] w-12 h-12 p-3 m-3 rounded-full leading-none">
-          +
+        <button className="flex justify-around items-center text-white bg-[#172841] hover:bg-[#283951] w-12 h-12 p-3 m-3 rounded-full">
+          <MdAddTask />
         </button>
       </div>
       <div className="flex justify-between mt-5">

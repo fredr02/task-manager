@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import Tasklist from './Tasklist';
 import Loading from './Loading';
+import { MdAddTask } from 'react-icons/md';
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -59,7 +60,7 @@ const App = () => {
   };
 
   return (
-    <div className="flex flex-col mt-4 max-w-md sm:mx-auto mx-4">
+    <div className="flex flex-col mt-4 max-w-md sm:mx-auto mx-4 relative">
       {isLoading && <Loading />}
 
       {!isLoading && <Header tasks={taskList} />}
@@ -71,6 +72,9 @@ const App = () => {
           updateTask={updateTask}
         />
       )}
+      <button className="flex justify-around items-center text-white bg-primary hover:bg-[#4C78EE] w-[4rem] h-[4rem] text-center text-2xl  m-3 rounded-full leading-none self-center fixed bottom-0">
+        <MdAddTask />
+      </button>
     </div>
   );
 };
