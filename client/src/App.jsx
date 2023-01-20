@@ -5,29 +5,37 @@ import Tasklist from './Tasklist';
 import Loading from './Loading';
 
 const App = () => {
-  useEffect(() => {
-    (async () => {
-      const data = await fetch(import.meta.env.VITE_API_BASE, {
-        method: 'GET',
-      });
-      const tasks = await data.json();
-      setTaskList(tasks);
-      setFilteredTasks(tasks.sort((a, b) => a.isComplete - b.isComplete));
-      setIsLoading(false);
-    })();
-  }, []);
-
   const [isLoading, setIsLoading] = useState(true);
+
   const [taskList, setTaskList] = useState([]);
+  const [filteredTasks, setFilteredTasks] = useState([]);
   const [filter, setFilter] = useState('all');
 
-  const [filteredTasks, setFilteredTasks] = useState([]);
+  useEffect(() => {
+    fetchData();
+    setIsLoading(false);
+  }, [filter]);
 
-  const filterData = (filter, tasks) => {
-    filter == 'all' && setFilteredTasks(tasks);
+  useEffect(() => {
+    filterData(filter || 'all');
+  }, [taskList]);
+
+  const fetchData = async () => {
+    const data = await fetch(import.meta.env.VITE_API_BASE, {
+      method: 'GET',
+    });
+    const tasks = await data.json();
+
+    setTaskList(tasks);
+    filterData(filter || 'all', tasks);
+  };
+
+  const filterData = (filter) => {
+    const sortedTasks = taskList.sort((a, b) => a.isComplete - b.isComplete);
+
+    filter == 'all' && setFilteredTasks(sortedTasks);
     filter == 'active' &&
-      setFilteredTasks(tasks.filter((task) => !task.isComplete));
-    setFilter(filter);
+      setFilteredTasks(sortedTasks.filter((task) => !task.isComplete));
   };
 
   const updateTask = async (updatedTask) => {
