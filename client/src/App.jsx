@@ -72,7 +72,7 @@ const App = () => {
           updateTask={updateTask}
         />
       )}
-      <button className="flex justify-around items-center text-white bg-primary hover:bg-[#4C78EE] w-[4rem] h-[4rem] text-center text-2xl  m-3 rounded-full leading-none self-center fixed bottom-0">
+      <button className="flex justify-around items-center text-white bg-primary hover:bg-[#4C78EE] w-[4rem] h-[4rem] text-center text-2xl  m-3 rounded-full leading-none self-center fixed bottom-0 sm:hidden">
         <MdAddTask />
       </button>
     </div>
