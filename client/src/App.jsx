@@ -6,9 +6,6 @@ import Loading from './Loading';
 import { MdAddTask } from 'react-icons/md';
 
 const reducer = (state, action) => {
-  const sortList = (list) => {
-    return list.sort((a, b) => a.isComplete - b.isComplete);
-  };
   if (action.type === 'updateTask') {
     const removedItemList = state.taskList.map((task) => {
       if (task._id == action.payload._id) return { ...action.payload };
@@ -16,24 +13,16 @@ const reducer = (state, action) => {
     });
     return {
       ...state,
-      tasks: sortList(removedItemList),
-      taskList: sortList(removedItemList),
+      taskList: removedItemList,
     };
   }
   if (action.type === 'setTaskList') {
-    const sortedTasks = sortList(action.payload);
-    return { ...state, taskList: sortedTasks, filteredTasks: sortedTasks };
-  } else if (action.type === 'active' || action.type === 'all') {
-    switch (action.type) {
-      case 'active':
-        return {
-          ...state,
-          filteredTasks: state.taskList.filter((task) => !task.isComplete),
-          filter: 'active',
-        };
-      case 'all':
-        return { ...state, filteredTasks: state.taskList, filter: 'all' };
-    }
+    return { ...state, taskList: action.payload };
+  } else if (action.type === 'changeFilter') {
+    return {
+      ...state,
+      filter: action.payload,
+    };
   }
 };
 
@@ -41,7 +30,6 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [state, dispatch] = useReducer(reducer, {
     taskList: [],
-    filteredTasks: [],
     filter: 'all',
   });
 
@@ -78,7 +66,7 @@ const App = () => {
       {!isLoading && <Header tasks={state.taskList} />}
       {!isLoading && (
         <Tasklist
-          tasks={state.filteredTasks}
+          originalTasks={state.taskList}
           filter={state.filter}
           dispatch={dispatch}
           updateTask={updateTask}

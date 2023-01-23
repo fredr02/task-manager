@@ -3,21 +3,34 @@ import { useEffect } from 'react';
 
 import Task from './Task';
 
-const Tasklist = ({ tasks, filter, dispatch, updateTask }) => {
+const Tasklist = ({ originalTasks, filter, dispatch, updateTask }) => {
   let enabled = 'bg-primary text-[black] rounded-full p-2 box-border';
   let disabled = 'bg-[#0e1621] text-[white] rounded-full p-2 box-border';
+
+  let sortedTasks = originalTasks.sort((a, b) => a.isComplete - b.isComplete);
+
+  let filteredTasks;
+  if (filter === 'active') {
+    filteredTasks = sortedTasks.filter((task) => !task.isComplete);
+  } else if (filter === 'all') {
+    filteredTasks = sortedTasks;
+  }
 
   return (
     <div className="flex flex-col mt-5 gap-4">
       <div className="flex justify-between items-center">
         <div className="flex gap-4">
-          <div className="bg-white rounded-xl font-sm p-3">{tasks.length}</div>
+          <div className="bg-white rounded-xl font-sm p-3">
+            {filteredTasks.length}
+          </div>
           <h2 className="text-primary text-5xl font-light">Tasks</h2>
         </div>
         <div>
           <button
             className={filter == 'active' ? enabled : disabled}
-            onClick={() => dispatch({ type: 'active' })}
+            onClick={() =>
+              dispatch({ type: 'changeFilter', payload: 'active' })
+            }
           >
             Active
           </button>
@@ -25,14 +38,14 @@ const Tasklist = ({ tasks, filter, dispatch, updateTask }) => {
             className={` ${
               filter == 'all' ? enabled : disabled
             } ml-2 min-w-[75px]`}
-            onClick={() => dispatch({ type: 'all' })}
+            onClick={() => dispatch({ type: 'changeFilter', payload: 'all' })}
           >
             All
           </button>
         </div>
       </div>
       <hr className="border-white"></hr>
-      {tasks.map((task, index) => (
+      {filteredTasks.map((task, index) => (
         <Task
           key={task._id}
           task={task}
