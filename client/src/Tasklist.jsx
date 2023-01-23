@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 import Task from './Task';
 
-const Tasklist = ({ tasks, filter, setFilter, updateTask }) => {
+const Tasklist = ({ tasks, filter, dispatch, updateTask }) => {
   let enabled = 'bg-primary text-[black] rounded-full p-2 box-border';
   let disabled = 'bg-[#0e1621] text-[white] rounded-full p-2 box-border';
 
@@ -17,7 +17,7 @@ const Tasklist = ({ tasks, filter, setFilter, updateTask }) => {
         <div>
           <button
             className={filter == 'active' ? enabled : disabled}
-            onClick={() => setFilter('active')}
+            onClick={() => dispatch({ type: 'active' })}
           >
             Active
           </button>
@@ -25,7 +25,7 @@ const Tasklist = ({ tasks, filter, setFilter, updateTask }) => {
             className={` ${
               filter == 'all' ? enabled : disabled
             } ml-2 min-w-[75px]`}
-            onClick={() => setFilter('all')}
+            onClick={() => dispatch({ type: 'all' })}
           >
             All
           </button>
