@@ -5,7 +5,7 @@ import { FiCheck } from 'react-icons/fi';
 const Task = ({ task, updateTask, index }) => {
   return (
     <div
-      className={`flex justify-between items-center min-h-[50px] bg-primary rounded-3xl cursor-pointer p-3 ${
+      className={`flex min-h-[50px] cursor-pointer items-center justify-between rounded-3xl bg-primary p-3 ${
         task.isComplete && 'bg-opacity-30'
       }`}
     >
@@ -13,7 +13,7 @@ const Task = ({ task, updateTask, index }) => {
       {!task.isComplete && (
         <button
           onClick={() => updateTask({ ...task, isComplete: true })}
-          className="bg-[black] bg-opacity-10 rounded-full p-3 hover:bg-opacity-20"
+          className="rounded-full bg-[black] bg-opacity-10 p-3 hover:bg-opacity-20"
         >
           {<FiCheck />}
         </button>

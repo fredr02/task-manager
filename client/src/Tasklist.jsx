@@ -17,13 +17,13 @@ const Tasklist = ({ originalTasks, filter, dispatch, updateTask }) => {
   }
 
   return (
-    <div className="flex flex-col mt-5 gap-4 h-full overflow-scroll">
-      <div className="flex justify-between items-center">
+    <div className="mt-5 flex h-full flex-col gap-4 overflow-scroll">
+      <div className="flex items-center justify-between">
         <div className="flex gap-4">
-          <div className="bg-white rounded-xl font-sm p-3">
+          <div className="font-sm rounded-xl bg-white p-3">
             {filteredTasks.length}
           </div>
-          <h2 className="text-primary text-5xl font-light">Tasks</h2>
+          <h2 className="text-5xl font-light text-primary">Tasks</h2>
         </div>
         <div>
           <button
@@ -45,7 +45,7 @@ const Tasklist = ({ originalTasks, filter, dispatch, updateTask }) => {
         </div>
       </div>
       <hr className="border-white"></hr>
-      <div className="flex flex-col gap-4 h-full overflow-scroll">
+      <div className="flex h-full flex-col gap-4 overflow-scroll">
         {filteredTasks.map((task, index) => (
           <Task
             key={task._id}

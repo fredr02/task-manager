@@ -54,18 +54,18 @@ const Header = ({ tasks }) => {
             </span>
           )}
         </h1>
-        <button className="flex justify-around items-center text-white bg-[#172841] hover:bg-[#283951] w-12 h-12 p-3 m-3 rounded-full">
+        <button className="m-3 flex h-12 w-12 items-center justify-around rounded-full bg-[#172841] p-3 text-white hover:bg-[#283951]">
           <MdAddTask />
         </button>
       </div>
-      <div className="flex justify-between mt-5">
+      <div className="mt-5 flex justify-between">
         <div className="text-white">
           <h3>{`Today's ${dayOfWeek}`}</h3>
-          <p className="text-gray text-sm">
+          <p className="text-sm text-gray">
             {monthString} {date}, {year}
           </p>
         </div>
-        <div className="text-white text-right">
+        <div className="text-right text-white">
           <h3 className="font-light">
             {(completeCount / tasks.length) * 100}% Done
           </h3>

@@ -60,7 +60,7 @@ const App = () => {
   };
 
   return (
-    <div className="flex flex-col pt-4 h-screen max-w-md sm:mx-auto mx-4 relative">
+    <div className="relative mx-4 flex h-screen max-w-md flex-col pt-4 sm:mx-auto">
       {isLoading && <Loading />}
 
       {!isLoading && <Header tasks={state.taskList} />}
@@ -72,7 +72,7 @@ const App = () => {
           updateTask={updateTask}
         />
       )}
-      <button className="flex justify-around items-center text-white bg-primary hover:bg-[#4C78EE] w-[4rem] h-[4rem] text-center text-2xl  m-3 rounded-full leading-none self-center fixed bottom-0 sm:hidden">
+      <button className="fixed bottom-0 m-3 flex h-[4rem] w-[4rem] items-center justify-around self-center rounded-full  bg-primary text-center text-2xl leading-none text-white hover:bg-[#4C78EE] sm:hidden">
         <MdAddTask />
       </button>
     </div>
