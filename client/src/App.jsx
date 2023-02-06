@@ -60,7 +60,7 @@ const App = () => {
   };
 
   return (
-    <div className="flex flex-col mt-4 max-w-md sm:mx-auto mx-4 relative">
+    <div className="flex flex-col pt-4 h-screen max-w-md sm:mx-auto mx-4 relative">
       {isLoading && <Loading />}
 
       {!isLoading && <Header tasks={state.taskList} />}

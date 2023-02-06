@@ -17,7 +17,7 @@ const Tasklist = ({ originalTasks, filter, dispatch, updateTask }) => {
   }
 
   return (
-    <div className="flex flex-col mt-5 gap-4">
+    <div className="flex flex-col mt-5 gap-4 h-full overflow-scroll">
       <div className="flex justify-between items-center">
         <div className="flex gap-4">
           <div className="bg-white rounded-xl font-sm p-3">
@@ -45,14 +45,16 @@ const Tasklist = ({ originalTasks, filter, dispatch, updateTask }) => {
         </div>
       </div>
       <hr className="border-white"></hr>
-      {filteredTasks.map((task, index) => (
-        <Task
-          key={task._id}
-          task={task}
-          updateTask={updateTask}
-          index={index}
-        />
-      ))}
+      <div className="flex flex-col gap-4 h-full overflow-scroll">
+        {filteredTasks.map((task, index) => (
+          <Task
+            key={task._id}
+            task={task}
+            updateTask={updateTask}
+            index={index}
+          />
+        ))}
+      </div>
     </div>
   );
 };
