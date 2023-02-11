@@ -7,8 +7,9 @@ const Tasklist = ({ originalTasks, filter, dispatch, updateTask }) => {
   let enabled = 'bg-primary text-[black] rounded-full p-2 box-border';
   let disabled = 'bg-[#0e1621] text-[white] rounded-full p-2 box-border';
 
-  let sortedTasks = originalTasks.sort((a, b) => a.isComplete - b.isComplete);
-
+  let sortedTasks: [] = originalTasks.sort(
+    (a, b) => a.isComplete - b.isComplete
+  );
   let filteredTasks;
   if (filter === 'active') {
     filteredTasks = sortedTasks.filter((task) => !task.isComplete);
