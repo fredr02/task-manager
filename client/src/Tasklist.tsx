@@ -49,7 +49,7 @@ const Tasklist = ({ originalTasks, filter, dispatch, updateTask }) => {
       <div className="flex h-full flex-col gap-4 overflow-scroll">
         {filteredTasks.map((task, index) => (
           <Task
-            key={task._id}
+            key={task._id.$oid}
             task={task}
             updateTask={updateTask}
             index={index}
