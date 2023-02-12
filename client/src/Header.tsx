@@ -1,8 +1,13 @@
 import React from 'react';
+import { task } from './types';
 
 import { MdAddTask } from 'react-icons/md';
 
-const Header = ({ tasks }) => {
+type Props = {
+  tasks: task[];
+};
+
+const Header = ({ tasks }: Props) => {
   const WEEKDAYS = [
     'Sunday',
     'Monday',

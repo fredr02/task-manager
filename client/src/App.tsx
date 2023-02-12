@@ -1,13 +1,19 @@
 import React, { useEffect, useState, useReducer } from 'react';
+import { task, appState } from './types';
 
 import Header from './Header';
 import Tasklist from './Tasklist';
 import Loading from './Loading';
 import { MdAddTask } from 'react-icons/md';
 
-const reducer = (state, action) => {
+type reducerAction = {
+  type: 'updateTask' | 'setTaskList' | 'changeFilter';
+  payload: task;
+};
+
+const reducer = (state: appState, action: reducerAction) => {
   if (action.type === 'updateTask') {
-    const removedItemList = state.taskList.map((task) => {
+    const removedItemList = state.taskList.map((task: task) => {
       if (task._id == action.payload._id) return { ...action.payload };
       return { ...task };
     });
@@ -27,11 +33,12 @@ const reducer = (state, action) => {
 };
 
 const App = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [state, dispatch] = useReducer(reducer, {
+  const initialState: appState = {
     taskList: [],
     filter: 'all',
-  });
+  };
+  const [isLoading, setIsLoading] = useState(true);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     fetchData();
@@ -46,7 +53,7 @@ const App = () => {
     dispatch({ type: 'setTaskList', payload: tasks });
   };
 
-  const updateTask = async (updatedTask) => {
+  const updateTask = async (updatedTask: task) => {
     const response = await fetch(
       `${import.meta.env.VITE_API_BASE}/${updatedTask._id}`,
       {

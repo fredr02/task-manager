@@ -1,8 +1,13 @@
 import React from 'react';
 
 import { FiCheck } from 'react-icons/fi';
+import { task } from './types';
 
-const Task = ({ task, updateTask, index }) => {
+type Props = {
+  task: task;
+  updateTask: (updatedTask: task) => Promise<void>;
+};
+const Task = ({ task, updateTask }: Props) => {
   return (
     <div
       className={`flex min-h-[50px] cursor-pointer items-center justify-between rounded-3xl bg-primary p-3 ${

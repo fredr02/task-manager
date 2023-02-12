@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { task } from './types';
 
 import Task from './Task';
 
-const Tasklist = ({ originalTasks, filter, dispatch, updateTask }) => {
+type Props = {
+  originalTasks: task[];
+  filter: 'all' | 'active';
+  dispatch: React.Dispatch;
+  updateTask: (updatedTask: task) => Promise<void>;
+};
+
+const Tasklist = ({ originalTasks, filter, dispatch, updateTask }: Props) => {
   let enabled = 'bg-primary text-[black] rounded-full p-2 box-border';
   let disabled = 'bg-[#0e1621] text-[white] rounded-full p-2 box-border';
-
-  let sortedTasks: [] = originalTasks.sort(
+  let sortedTasks: task[] = originalTasks.sort(
     (a, b) => a.isComplete - b.isComplete
   );
-  let filteredTasks;
+  let filteredTasks: task[];
   if (filter === 'active') {
     filteredTasks = sortedTasks.filter((task) => !task.isComplete);
   } else if (filter === 'all') {
@@ -22,7 +28,7 @@ const Tasklist = ({ originalTasks, filter, dispatch, updateTask }) => {
       <div className="flex items-center justify-between">
         <div className="flex gap-4">
           <div className="font-sm rounded-xl bg-white p-3">
-            {filteredTasks.length}
+            {filteredTasks!.length}
           </div>
           <h2 className="text-5xl font-light text-primary">Tasks</h2>
         </div>
@@ -47,13 +53,8 @@ const Tasklist = ({ originalTasks, filter, dispatch, updateTask }) => {
       </div>
       <hr className="border-white"></hr>
       <div className="flex h-full flex-col gap-4 overflow-scroll">
-        {filteredTasks.map((task, index) => (
-          <Task
-            key={task._id.$oid}
-            task={task}
-            updateTask={updateTask}
-            index={index}
-          />
+        {filteredTasks!.map((task) => (
+          <Task key={task._id.$oid} task={task} updateTask={updateTask} />
         ))}
       </div>
     </div>
