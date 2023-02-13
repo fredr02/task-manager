@@ -26,7 +26,7 @@ const Tasklist = ({ originalTasks, filter, dispatch, updateTask }: Props) => {
   }
 
   return (
-    <div className="mt-5 flex h-full flex-col gap-4 overflow-scroll">
+    <div className="mt-5 flex h-full flex-col gap-4 overflow-auto">
       <div className="flex items-center justify-between">
         <div className="flex gap-4">
           <div className="font-sm rounded-xl bg-white p-3">
@@ -54,7 +54,7 @@ const Tasklist = ({ originalTasks, filter, dispatch, updateTask }: Props) => {
         </div>
       </div>
       <hr className="border-white"></hr>
-      <div className="flex h-full flex-col gap-4 overflow-scroll">
+      <div className="flex h-full flex-col gap-4 overflow-auto">
         {filteredTasks!.map((task) => (
           <Task key={task._id.$oid} task={task} updateTask={updateTask} />
         ))}
