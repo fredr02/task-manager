@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { task } from './types';
 
+import { reducerAction } from './App';
+
 import Task from './Task';
 
 type Props = {
   originalTasks: task[];
   filter: 'all' | 'active';
-  dispatch: React.Dispatch;
+  dispatch: React.Dispatch<reducerAction>;
   updateTask: (updatedTask: task) => Promise<void>;
 };
 
@@ -14,7 +16,7 @@ const Tasklist = ({ originalTasks, filter, dispatch, updateTask }: Props) => {
   let enabled = 'bg-primary text-[black] rounded-full p-2 box-border';
   let disabled = 'bg-[#0e1621] text-[white] rounded-full p-2 box-border';
   let sortedTasks: task[] = originalTasks.sort(
-    (a, b) => a.isComplete - b.isComplete
+    (a, b) => Number(a.isComplete) - Number(b.isComplete)
   );
   let filteredTasks: task[];
   if (filter === 'active') {

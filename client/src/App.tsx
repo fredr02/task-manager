@@ -6,30 +6,36 @@ import Tasklist from './Tasklist';
 import Loading from './Loading';
 import { MdAddTask } from 'react-icons/md';
 
-type reducerAction = {
+export type reducerAction = {
   type: 'updateTask' | 'setTaskList' | 'changeFilter';
-  payload: task;
+  payload: task[] | task | 'all' | 'active';
 };
 
-const reducer = (state: appState, action: reducerAction) => {
+const reducer = (state: appState, action: reducerAction): appState => {
+  let taskAction = action.payload as task;
+  let filterAction = action.payload as 'all' | 'active';
+  let taskListAction = action.payload as task[];
+
   if (action.type === 'updateTask') {
     const removedItemList = state.taskList.map((task: task) => {
-      if (task._id == action.payload._id) return { ...action.payload };
+      if (task._id == taskAction._id) return { ...taskAction };
       return { ...task };
     });
+
     return {
       ...state,
       taskList: removedItemList,
     };
   }
   if (action.type === 'setTaskList') {
-    return { ...state, taskList: action.payload };
+    return { ...state, taskList: taskListAction };
   } else if (action.type === 'changeFilter') {
     return {
       ...state,
-      filter: action.payload,
+      filter: filterAction,
     };
   }
+  return state;
 };
 
 const App = () => {
