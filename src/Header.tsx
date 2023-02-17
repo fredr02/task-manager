@@ -5,9 +5,10 @@ import { MdAddTask } from 'react-icons/md';
 
 type Props = {
   tasks: task[];
+  flipAddTask: () => void;
 };
 
-const Header = ({ tasks }: Props) => {
+const Header = ({ tasks, flipAddTask }: Props) => {
   const WEEKDAYS = [
     'Sunday',
     'Monday',
@@ -60,7 +61,7 @@ const Header = ({ tasks }: Props) => {
           )}
         </h1>
         <button className="m-3 flex h-12 w-12 items-center justify-around rounded-full bg-[#172841] p-3 text-white hover:bg-[#283951]">
-          <MdAddTask />
+          <MdAddTask onClick={flipAddTask} />
         </button>
       </div>
       <div className="mt-5 flex justify-between">

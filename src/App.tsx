@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useReducer } from 'react';
+import AddTask from './AddTask';
+('react');
 import { db } from './firebase';
 import { doc, updateDoc, getDocs, collection } from 'firebase/firestore';
 import { task, appState } from './types';
@@ -46,7 +48,12 @@ const App = () => {
     filter: 'all',
   };
   const [isLoading, setIsLoading] = useState(true);
+  const [showAddTask, setShowAddTask] = useState(false);
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  const flipAddTask = () => {
+    setShowAddTask((p) => !p);
+  };
 
   useEffect(() => {
     fetchData();
@@ -70,11 +77,15 @@ const App = () => {
     dispatch({ type: 'updateTask', payload: updatedTask });
   };
 
+  const addTaskClickHandler = () => {};
+
   return (
     <div className="relative mx-4 flex h-screen max-w-md flex-col pt-4 sm:mx-auto">
       {isLoading && <Loading />}
 
-      {!isLoading && <Header tasks={state.taskList} />}
+      {!isLoading && (
+        <Header tasks={state.taskList} flipAddTask={flipAddTask} />
+      )}
       {!isLoading && (
         <Tasklist
           originalTasks={state.taskList}
@@ -86,6 +97,7 @@ const App = () => {
       <button className="fixed bottom-0 m-3 flex h-[4rem] w-[4rem] items-center justify-around self-center rounded-full  bg-primary text-center text-2xl leading-none text-white hover:bg-[#4C78EE] sm:hidden">
         <MdAddTask />
       </button>
+      {showAddTask ? <AddTask flipAddTask={flipAddTask} /> : null}
     </div>
   );
 };
