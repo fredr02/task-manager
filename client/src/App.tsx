@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useReducer } from 'react';
+import { db } from './firebase';
+import { doc, updateDoc, getDocs, collection } from 'firebase/firestore';
 import { task, appState } from './types';
 
 import Header from './Header';
@@ -18,7 +20,7 @@ const reducer = (state: appState, action: reducerAction): appState => {
 
   if (action.type === 'updateTask') {
     const removedItemList = state.taskList.map((task: task) => {
-      if (task._id == taskAction._id) return { ...taskAction };
+      if (task.id == taskAction.id) return { ...taskAction };
       return { ...task };
     });
 
@@ -52,22 +54,18 @@ const App = () => {
   }, []);
 
   const fetchData = async () => {
-    const data = await fetch(import.meta.env.VITE_API_BASE, {
-      method: 'GET',
+    const querySnapshot = await getDocs(collection(db, 'todos'));
+    const docsArray = querySnapshot.docs;
+    let tasks: task[] = [] as task[];
+    docsArray.forEach((doc) => {
+      tasks.push({ id: doc.id, ...doc.data() } as task);
     });
-    const tasks = await data.json();
     dispatch({ type: 'setTaskList', payload: tasks });
   };
 
   const updateTask = async (updatedTask: task) => {
-    const response = await fetch(
-      `${import.meta.env.VITE_API_BASE}/${updatedTask._id}`,
-      {
-        method: 'PUT',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ ...updatedTask }),
-      }
-    );
+    const docRef = doc(db, 'todos', updatedTask.id);
+    updateDoc(docRef, { ...updatedTask });
 
     dispatch({ type: 'updateTask', payload: updatedTask });
   };

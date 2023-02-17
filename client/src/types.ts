@@ -4,7 +4,7 @@ export type appState = {
 };
 
 export interface task {
-  _id: { $oid: string };
+  id: string;
   name: string;
   isComplete: boolean;
 }
