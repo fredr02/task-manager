@@ -73,7 +73,7 @@ const Header = ({ tasks, flipAddTask }: Props) => {
         </div>
         <div className="text-right text-white">
           <h3 className="font-light">
-            {(completeCount / tasks.length) * 100}% Done
+            {Math.round((completeCount / tasks.length) * 100)}% Done
           </h3>
           <p className="text-gray">Completed Tasks</p>
         </div>
