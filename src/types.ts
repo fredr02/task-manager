@@ -3,8 +3,10 @@ export type appState = {
   filter: 'all' | 'active';
 };
 
-export interface task {
-  id: string;
+export type task {
+  id: taskId;
   name: string;
   isComplete: boolean;
 }
+
+export type taskId = string;

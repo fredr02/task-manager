@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { task } from './types';
+import { task, taskId } from './types';
 
 import { reducerAction } from './App';
 
@@ -10,9 +10,16 @@ type Props = {
   filter: 'all' | 'active';
   dispatch: React.Dispatch<reducerAction>;
   updateTask: (updatedTask: task) => Promise<void>;
+  deleteTask: (taskId: taskId) => void;
 };
 
-const Tasklist = ({ originalTasks, filter, dispatch, updateTask }: Props) => {
+const Tasklist = ({
+  originalTasks,
+  filter,
+  dispatch,
+  updateTask,
+  deleteTask,
+}: Props) => {
   let enabled = 'bg-primary text-[black] rounded-full p-2 box-border';
   let disabled = 'bg-[#0e1621] text-[white] rounded-full p-2 box-border';
   let sortedTasks: task[] = originalTasks.sort(
@@ -56,7 +63,12 @@ const Tasklist = ({ originalTasks, filter, dispatch, updateTask }: Props) => {
       <hr className="border-white"></hr>
       <div className="flex h-full flex-col gap-4 overflow-auto">
         {filteredTasks!.map((task) => (
-          <Task key={task.id} task={task} updateTask={updateTask} />
+          <Task
+            key={task.id}
+            task={task}
+            updateTask={updateTask}
+            deleteTask={deleteTask}
+          />
         ))}
       </div>
     </div>

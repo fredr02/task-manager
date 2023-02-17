@@ -1,13 +1,15 @@
 import React from 'react';
 
 import { FiCheck } from 'react-icons/fi';
+import { BiTrash } from 'react-icons/bi';
 import { task } from './types';
 
 type Props = {
   task: task;
   updateTask: (updatedTask: task) => Promise<void>;
+  deleteTask: () => void;
 };
-const Task = ({ task, updateTask }: Props) => {
+const Task = ({ task, updateTask, deleteTask }: Props) => {
   return (
     <div
       className={`flex min-h-[50px] cursor-pointer items-center justify-between rounded-3xl bg-primary p-3 ${
@@ -21,6 +23,14 @@ const Task = ({ task, updateTask }: Props) => {
           className="rounded-full bg-[black] bg-opacity-10 p-3 hover:bg-opacity-20"
         >
           {<FiCheck />}
+        </button>
+      )}
+      {task.isComplete && (
+        <button
+          onClick={() => deleteTask(task.id)}
+          className="rounded-full bg-[black] bg-opacity-10 p-3 hover:bg-opacity-20"
+        >
+          <BiTrash />
         </button>
       )}
     </div>

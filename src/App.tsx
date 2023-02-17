@@ -2,8 +2,14 @@ import React, { useEffect, useState, useReducer } from 'react';
 import AddTask from './AddTask';
 ('react');
 import { db } from './firebase';
-import { doc, updateDoc, getDocs, collection } from 'firebase/firestore';
-import { task, appState } from './types';
+import {
+  doc,
+  updateDoc,
+  getDocs,
+  deleteDoc,
+  collection,
+} from 'firebase/firestore';
+import { task, appState, taskId } from './types';
 
 import Header from './Header';
 import Tasklist from './Tasklist';
@@ -11,8 +17,13 @@ import Loading from './Loading';
 import { MdAddTask } from 'react-icons/md';
 
 export type reducerAction = {
-  type: 'updateTask' | 'setTaskList' | 'changeFilter' | 'addTask';
-  payload: task[] | task | 'all' | 'active';
+  type:
+    | 'updateTask'
+    | 'setTaskList'
+    | 'changeFilter'
+    | 'addTask'
+    | 'deleteTask';
+  payload: task[] | task | 'all' | 'active' | taskId;
 };
 
 const reducer = (state: appState, action: reducerAction): appState => {
@@ -21,6 +32,7 @@ const reducer = (state: appState, action: reducerAction): appState => {
   let taskListAction = action.payload as task[];
 
   if (action.type === 'updateTask') {
+    console.log('reducer!');
     const removedItemList = state.taskList.map((task: task) => {
       if (task.id == taskAction.id) return { ...taskAction };
       return { ...task };
@@ -38,6 +50,15 @@ const reducer = (state: appState, action: reducerAction): appState => {
     return {
       ...state,
       taskList: [...state.taskList, action.payload as task],
+    };
+  }
+  if (action.type === 'deleteTask') {
+    return {
+      ...state,
+      taskList: state.taskList.filter((task) => {
+        if (task.id == action.payload) return false;
+        return true;
+      }),
     };
   } else if (action.type === 'changeFilter') {
     return {
@@ -83,6 +104,12 @@ const App = () => {
     dispatch({ type: 'updateTask', payload: updatedTask });
   };
 
+  const deleteTask = (taskId: taskId) => {
+    const docRef = doc(db, 'todos', taskId);
+    deleteDoc(docRef);
+    dispatch({ type: 'deleteTask', payload: taskId });
+  };
+
   const addTaskClickHandler = () => {};
 
   return (
@@ -98,6 +125,7 @@ const App = () => {
           filter={state.filter}
           dispatch={dispatch}
           updateTask={updateTask}
+          deleteTask={deleteTask}
         />
       )}
       <button
