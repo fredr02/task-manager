@@ -76,7 +76,9 @@ const Header = ({ tasks, flipAddTask }: Props) => {
         </div>
         <div className="text-right text-white">
           <h3 className="font-light">
-            {Math.round((completeCount / tasks.length) * 100)}% Done
+            {tasks.length > 0
+              ? Math.round((completeCount / tasks.length) * 100) + '% Done'
+              : 'No tasks!'}
           </h3>
           <p className="text-gray">Completed Tasks</p>
         </div>
