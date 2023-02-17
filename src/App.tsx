@@ -100,7 +100,10 @@ const App = () => {
           updateTask={updateTask}
         />
       )}
-      <button className="fixed bottom-0 m-3 flex h-[4rem] w-[4rem] items-center justify-around self-center rounded-full  bg-primary text-center text-2xl leading-none text-white hover:bg-[#4C78EE] sm:hidden">
+      <button
+        onClick={flipAddTask}
+        className="fixed bottom-0 m-3 flex h-[4rem] w-[4rem] items-center justify-around self-center rounded-full  bg-primary text-center text-2xl leading-none text-white hover:bg-[#4C78EE] sm:hidden"
+      >
         <MdAddTask />
       </button>
       {showAddTask ? (
