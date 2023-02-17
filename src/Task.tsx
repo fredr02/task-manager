@@ -2,12 +2,12 @@ import React from 'react';
 
 import { FiCheck } from 'react-icons/fi';
 import { BiTrash } from 'react-icons/bi';
-import { task } from './types';
+import { task, taskId } from './types';
 
 type Props = {
   task: task;
   updateTask: (updatedTask: task) => Promise<void>;
-  deleteTask: () => void;
+  deleteTask: (taskId: taskId) => void;
 };
 const Task = ({ task, updateTask, deleteTask }: Props) => {
   return (

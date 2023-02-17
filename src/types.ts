@@ -3,10 +3,10 @@ export type appState = {
   filter: 'all' | 'active';
 };
 
-export type task {
+export type task = {
   id: taskId;
   name: string;
   isComplete: boolean;
-}
+};
 
 export type taskId = string;
