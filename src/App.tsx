@@ -11,7 +11,7 @@ import Loading from './Loading';
 import { MdAddTask } from 'react-icons/md';
 
 export type reducerAction = {
-  type: 'updateTask' | 'setTaskList' | 'changeFilter';
+  type: 'updateTask' | 'setTaskList' | 'changeFilter' | 'addTask';
   payload: task[] | task | 'all' | 'active';
 };
 
@@ -33,6 +33,12 @@ const reducer = (state: appState, action: reducerAction): appState => {
   }
   if (action.type === 'setTaskList') {
     return { ...state, taskList: taskListAction };
+  }
+  if (action.type === 'addTask') {
+    return {
+      ...state,
+      taskList: [...state.taskList, action.payload as task],
+    };
   } else if (action.type === 'changeFilter') {
     return {
       ...state,
@@ -97,7 +103,9 @@ const App = () => {
       <button className="fixed bottom-0 m-3 flex h-[4rem] w-[4rem] items-center justify-around self-center rounded-full  bg-primary text-center text-2xl leading-none text-white hover:bg-[#4C78EE] sm:hidden">
         <MdAddTask />
       </button>
-      {showAddTask ? <AddTask flipAddTask={flipAddTask} /> : null}
+      {showAddTask ? (
+        <AddTask dispatch={dispatch} flipAddTask={flipAddTask} />
+      ) : null}
     </div>
   );
 };
