@@ -60,8 +60,11 @@ const Header = ({ tasks, flipAddTask }: Props) => {
             </span>
           )}
         </h1>
-        <button className="m-3 flex h-12 w-12 items-center justify-around rounded-full bg-[#172841] p-3 text-white hover:bg-[#283951]">
-          <MdAddTask onClick={flipAddTask} />
+        <button
+          onClick={flipAddTask}
+          className="m-3 flex h-12 w-12 items-center justify-around rounded-full bg-[#172841] p-3 text-white hover:bg-[#283951]"
+        >
+          <MdAddTask />
         </button>
       </div>
       <div className="mt-5 flex justify-between">
