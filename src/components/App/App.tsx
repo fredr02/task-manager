@@ -9,9 +9,10 @@ import { MdAddTask } from 'react-icons/md';
 const App = () => {
   const {
     showAddTask,
+    addTask,
     deleteTask,
     updateTask,
-    dispatch,
+    changeFilter,
     flipAddTask,
     isLoading,
     state,
@@ -21,13 +22,13 @@ const App = () => {
       {isLoading && <Loading />}
 
       {!isLoading && (
-        <Header tasks={state.taskList} flipAddTask={flipAddTask} />
+        <Header tasks={state.taskList!} flipAddTask={flipAddTask} />
       )}
       {!isLoading && (
         <Tasklist
-          originalTasks={state.taskList}
+          originalTasks={state.taskList!}
           filter={state.filter}
-          dispatch={dispatch}
+          changeFilter={changeFilter}
           updateTask={updateTask}
           deleteTask={deleteTask}
         />
@@ -39,7 +40,7 @@ const App = () => {
         <MdAddTask />
       </button>
       {showAddTask ? (
-        <AddTask dispatch={dispatch} flipAddTask={flipAddTask} />
+        <AddTask addTask={addTask} flipAddTask={flipAddTask} />
       ) : null}
     </div>
   );

@@ -11,16 +11,11 @@ import {
   collection,
 } from 'firebase/firestore';
 
-import reducer from './TaskManagerReducer';
-
 const useTaskManager = () => {
-  const initialState: appState = {
-    taskList: [],
-    filter: 'all',
-  };
   const [isLoading, setIsLoading] = useState(true);
   const [showAddTask, setShowAddTask] = useState(false);
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [taskList, setTaskList] = useState<task[]>();
+  const [filter, setFilter] = useState<'all' | 'active'>('all');
 
   const flipAddTask = () => {
     setShowAddTask((p) => !p);
@@ -28,7 +23,6 @@ const useTaskManager = () => {
 
   useEffect(() => {
     fetchData();
-    setIsLoading(false);
   }, []);
 
   const fetchData = async () => {
@@ -38,27 +32,55 @@ const useTaskManager = () => {
     docsArray.forEach((doc) => {
       tasks.push({ id: doc.id, ...doc.data() } as task);
     });
-    dispatch({ type: 'setTaskList', payload: tasks });
+    setTaskList(tasks);
+    setIsLoading(false);
   };
 
+  const addTask = (task: task) => {
+    setTaskList((p) => {
+      return [...(p as task[]), task];
+    });
+    console.log(taskList);
+  };
   const updateTask = async (updatedTask: task) => {
     const docRef = doc(db, 'todos', updatedTask.id);
     updateDoc(docRef, { ...updatedTask });
 
-    dispatch({ type: 'updateTask', payload: updatedTask });
+    setTaskList((p) => {
+      return p!.map((task: task) => {
+        if (task.id == updatedTask.id) return { ...updatedTask };
+        return { ...task };
+      });
+    });
   };
 
   const deleteTask = (taskId: taskId) => {
     const docRef = doc(db, 'todos', taskId);
     deleteDoc(docRef);
-    dispatch({ type: 'deleteTask', payload: taskId });
+
+    setTaskList((p) =>
+      p!.filter((task) => {
+        if (task.id === taskId) {
+          return false;
+        } else return true;
+      })
+    );
   };
 
+  const changeFilter = (type: 'active' | 'all') => {
+    setFilter(type);
+  };
+
+  const state = {
+    taskList: taskList,
+    filter: filter,
+  };
   return {
     showAddTask,
+    addTask,
     deleteTask,
     updateTask,
-    dispatch,
+    changeFilter,
     flipAddTask,
     isLoading,
     state,

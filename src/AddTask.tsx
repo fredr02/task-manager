@@ -4,16 +4,15 @@ import ModalCard from './ModalCard';
 
 import { collection, addDoc, doc } from 'firebase/firestore';
 import { db, app } from './firebase';
-import { reducerAction } from './components/App/App';
 
 import { task } from './types';
 
 type AddTaskProps = {
   flipAddTask: () => void;
-  dispatch: React.Dispatch<reducerAction>;
+  addTask: (task: task) => void;
 };
 
-const AddTask = ({ flipAddTask, dispatch }: AddTaskProps) => {
+const AddTask = ({ flipAddTask, addTask }: AddTaskProps) => {
   const inputName = useRef<HTMLInputElement>(null);
 
   const submitHandler = (e: React.FormEvent) => {
@@ -24,14 +23,11 @@ const AddTask = ({ flipAddTask, dispatch }: AddTaskProps) => {
         name: inputName.current!.value,
         isComplete: false,
       }).then((docref) => {
-        dispatch({
-          type: 'addTask',
-          payload: {
-            id: docref.id,
-            name: inputName.current!.value,
-            isComplete: false,
-          } as task,
-        });
+        addTask({
+          id: docref.id,
+          name: inputName.current!.value,
+          isComplete: false,
+        } as task);
         flipAddTask();
       });
     }

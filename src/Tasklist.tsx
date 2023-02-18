@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { task, taskId } from './types';
 
-import { reducerAction } from './components/App/App';
-
 import Task from './Task';
 
 type Props = {
   originalTasks: task[];
   filter: 'all' | 'active';
-  dispatch: React.Dispatch<reducerAction>;
+  changeFilter: (type: 'all' | 'active') => void;
   updateTask: (updatedTask: task) => Promise<void>;
   deleteTask: (taskId: taskId) => void;
 };
@@ -16,9 +14,9 @@ type Props = {
 const Tasklist = ({
   originalTasks,
   filter,
-  dispatch,
   updateTask,
   deleteTask,
+  changeFilter,
 }: Props) => {
   let enabled = 'bg-primary text-[black] rounded-full p-2 box-border';
   let disabled = 'bg-[#0e1621] text-[white] rounded-full p-2 box-border';
@@ -44,9 +42,7 @@ const Tasklist = ({
         <div>
           <button
             className={filter == 'active' ? enabled : disabled}
-            onClick={() =>
-              dispatch({ type: 'changeFilter', payload: 'active' })
-            }
+            onClick={() => changeFilter('active')}
           >
             Active
           </button>
@@ -54,7 +50,7 @@ const Tasklist = ({
             className={` ${
               filter == 'all' ? enabled : disabled
             } ml-2 min-w-[75px]`}
-            onClick={() => dispatch({ type: 'changeFilter', payload: 'all' })}
+            onClick={() => changeFilter('all')}
           >
             All
           </button>
