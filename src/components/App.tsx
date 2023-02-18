@@ -19,20 +19,20 @@ const App = () => {
   } = useTaskManager();
   return (
     <div className="relative mx-4 flex h-screen max-w-md flex-col pt-4 sm:mx-auto">
-      {isLoading && <Loading />}
+      {isLoading ? <Loading /> : null}
 
-      {!isLoading && (
-        <Header tasks={state.taskList!} flipAddTask={flipAddTask} />
-      )}
-      {!isLoading && (
-        <Tasklist
-          originalTasks={state.taskList!}
-          filter={state.filter}
-          changeFilter={changeFilter}
-          updateTask={updateTask}
-          deleteTask={deleteTask}
-        />
-      )}
+      {!isLoading ? (
+        <>
+          (<Header tasks={state.taskList!} flipAddTask={flipAddTask} />
+          <Tasklist
+            originalTasks={state.taskList!}
+            filter={state.filter}
+            changeFilter={changeFilter}
+            updateTask={updateTask}
+            deleteTask={deleteTask}
+          />
+        </>
+      ) : null}
       <button
         onClick={flipAddTask}
         className="fixed bottom-0 m-3 flex h-[4rem] w-[4rem] items-center justify-around self-center rounded-full  bg-primary text-center text-2xl leading-none text-white hover:bg-[#4C78EE] sm:hidden"
