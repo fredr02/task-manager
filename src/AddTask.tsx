@@ -4,7 +4,7 @@ import ModalCard from './ModalCard';
 
 import { collection, addDoc, doc } from 'firebase/firestore';
 import { db, app } from './firebase';
-import { reducerAction } from './App';
+import { reducerAction } from './components/App/App';
 
 import { task } from './types';
 

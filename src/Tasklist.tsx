@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { task, taskId } from './types';
 
-import { reducerAction } from './App';
+import { reducerAction } from './components/App/App';
 
 import Task from './Task';
 
