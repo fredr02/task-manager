@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useReducer } from 'react';
-import { task, appState, taskId } from '../../types';
+import { task, appState, taskId } from '../types';
 
-import { db } from '../../firebase';
+import { db } from '../firebase';
 
 import {
   doc,

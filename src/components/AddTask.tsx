@@ -3,9 +3,9 @@ import { AiOutlineClose } from 'react-icons/ai';
 import ModalCard from './ModalCard';
 
 import { collection, addDoc, doc } from 'firebase/firestore';
-import { db, app } from './firebase';
+import { db, app } from '../firebase';
 
-import { task } from './types';
+import { task } from '../types';
 
 type AddTaskProps = {
   flipAddTask: () => void;

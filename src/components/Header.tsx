@@ -1,5 +1,5 @@
 import React from 'react';
-import { task } from './types';
+import { task } from '../types';
 
 import { MdAddTask } from 'react-icons/md';
 

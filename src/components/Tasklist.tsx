@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { task, taskId } from './types';
+import { task, taskId } from '../types';
 
 import Task from './Task';
 

@@ -1,9 +1,9 @@
 import useTaskManager from './useTaskManager';
 
-import AddTask from '../../AddTask';
-import Header from '../../Header';
-import Tasklist from '../../Tasklist';
-import Loading from '../../Loading';
+import AddTask from './AddTask';
+import Header from './Header';
+import Tasklist from './Tasklist';
+import Loading from './Loading';
 import { MdAddTask } from 'react-icons/md';
 
 const App = () => {

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { FiCheck } from 'react-icons/fi';
 import { BiTrash } from 'react-icons/bi';
-import { task, taskId } from './types';
+import { task, taskId } from '../types';
 
 type Props = {
   task: task;
