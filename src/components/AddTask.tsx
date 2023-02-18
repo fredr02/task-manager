@@ -38,6 +38,7 @@ const AddTask = ({ flipAddTask, addTask }: AddTaskProps) => {
         <h1 className="text-lg">Add Task</h1>
         <form onSubmit={submitHandler}>
           <input
+            autoFocus
             ref={inputName}
             placeholder="Todo Name"
             className="rounded p-4"
