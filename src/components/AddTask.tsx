@@ -19,16 +19,20 @@ const AddTask = ({ flipAddTask, addTask }: AddTaskProps) => {
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
 
+    const currentDateString = new Date();
+
     if (taskInput.current!.value) {
       addDoc(collection(db, 'todos'), {
         name: taskInput.current!.value,
         description: descriptionInput.current!.value,
+        time: currentDateString,
         isComplete: false,
       }).then((docref) => {
         addTask({
           id: docref.id,
           name: taskInput.current!.value,
           description: descriptionInput.current!.value,
+          time: currentDateString,
           isComplete: false,
         } as task);
         flipAddTask();
