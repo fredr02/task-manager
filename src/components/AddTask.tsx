@@ -21,18 +21,21 @@ const AddTask = ({ flipAddTask, addTask }: AddTaskProps) => {
 
     const currentDateString = new Date();
 
-    if (taskInput.current!.value) {
+    const taskInputValue = taskInput.current!.value;
+    const descriptionInputValue = descriptionInput.current!.value;
+
+    if (taskInputValue) {
       flipAddTask();
       addDoc(collection(db, 'todos'), {
-        name: taskInput.current!.value,
-        description: descriptionInput.current!.value,
+        name: taskInputValue,
+        description: descriptionInputValue,
         time: currentDateString,
         isComplete: false,
       }).then((docref) => {
         addTask({
           id: docref.id,
-          name: taskInput.current!.value,
-          description: descriptionInput.current!.value,
+          name: taskInputValue,
+          description: descriptionInputValue,
           time: currentDateString,
           isComplete: false,
         } as task);
