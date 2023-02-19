@@ -31,6 +31,11 @@ const TodoInfo = ({
     taskChange.updateTask({ ...currentTask, isComplete: true });
   };
 
+  const changeName = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (e.target.value != '')
+      taskChange.updateTask({ ...currentTask, name: e.target.value });
+  };
+
   let description = currentTask!.description
     ? '   ' + currentTask!.description
     : '   No Additional Description';
@@ -46,7 +51,11 @@ const TodoInfo = ({
           </button>
         </div>
         <p className="mt-2 w-fit rounded-2xl border-2 px-2">Todo List</p>
-        <h1 className="mt-4 text-2xl font-semibold">{currentTask!.name}</h1>
+        <input
+          className=" mt-4 bg-[#9DECFF] text-2xl font-semibold"
+          defaultValue={currentTask!.name}
+          onBlur={changeName}
+        ></input>
         <p className="mt-8 text-gray">Additional Description</p>
         <p className="pl-4">
           {currentTask!.description || 'No Additional Description'}
