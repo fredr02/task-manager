@@ -8,7 +8,7 @@ type Props = {
   task: task;
   updateTask: (updatedTask: task) => Promise<void>;
   deleteTask: (taskId: taskId) => void;
-  setCurrentTask: React.Dispatch<React.SetStateAction<task>>;
+  setCurrentTask: React.Dispatch<React.SetStateAction<task | null>>;
 };
 const Task = ({ task, updateTask, deleteTask, setCurrentTask }: Props) => {
   const taskClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {

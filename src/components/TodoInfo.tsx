@@ -1,14 +1,23 @@
 import React from 'react';
 import { AiFillDownCircle, AiOutlineMenu } from 'react-icons/ai';
-import { task } from '../types';
+import { FiCheck } from 'react-icons/fi';
+import { task, taskChange } from '../types';
 
 type TodoInfoProps = {
   currentTask: task;
   setCurrentTask: React.Dispatch<React.SetStateAction<task | null>>;
+  taskChange: taskChange;
 };
-const TodoInfo = ({ currentTask, setCurrentTask }: TodoInfoProps) => {
+const TodoInfo = ({
+  currentTask,
+  setCurrentTask,
+  taskChange,
+}: TodoInfoProps) => {
   const closeClickHandler = () => {
     setCurrentTask(null);
+  };
+  const checkClickHandler = () => {
+    taskChange.updateTask({ ...currentTask, isComplete: true });
   };
 
   let description = currentTask.description
@@ -33,6 +42,14 @@ const TodoInfo = ({ currentTask, setCurrentTask }: TodoInfoProps) => {
         </p>
         <p className="text-gray">Created</p>
         <p className="pl-4">{currentTask.time}</p>
+        {!currentTask.isComplete ? (
+          <button
+            onClick={checkClickHandler}
+            className="fixed bottom-[10rem] left-0 right-0 mx-auto w-fit rounded-full bg-[black] bg-opacity-10 p-8 text-4xl hover:bg-opacity-20"
+          >
+            {<FiCheck />}
+          </button>
+        ) : null}
       </div>
     </div>
   );

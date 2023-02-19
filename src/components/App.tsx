@@ -9,6 +9,7 @@ import TodoInfo from './TodoInfo';
 
 const App = () => {
   const {
+    taskChange,
     showAddTask,
     currentTask,
     setCurrentTask,
@@ -47,7 +48,11 @@ const App = () => {
         <AddTask addTask={addTask} flipAddTask={flipAddTask} />
       ) : null}
       {currentTask ? (
-        <TodoInfo currentTask={currentTask} setCurrentTask={setCurrentTask} />
+        <TodoInfo
+          taskChange={taskChange}
+          currentTask={currentTask}
+          setCurrentTask={setCurrentTask}
+        />
       ) : null}
     </div>
   );

@@ -11,4 +11,10 @@ export type task = {
   time: string;
 };
 
+export type taskChange = {
+  addTask: (task: task) => void;
+  updateTask: (updatedTask: task) => void;
+  deleteTask: (taskId: taskId) => void;
+};
+
 export type taskId = string;

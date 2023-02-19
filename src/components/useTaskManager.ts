@@ -76,7 +76,14 @@ const useTaskManager = () => {
     taskList: taskList,
     filter: filter,
   };
+
+  const taskChange = {
+    addTask: addTask,
+    updateTask: updateTask,
+    deleteTask: deleteTask,
+  };
   return {
+    taskChange,
     showAddTask,
     addTask,
     deleteTask,
