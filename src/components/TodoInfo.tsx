@@ -4,24 +4,35 @@ import { FiCheck } from 'react-icons/fi';
 import { task, taskChange } from '../types';
 
 type TodoInfoProps = {
-  currentTask: task;
-  setCurrentTask: React.Dispatch<React.SetStateAction<task | null>>;
+  state: {
+    taskList: task[] | undefined;
+    filter: 'active' | 'all';
+  };
+  currentTaskId: string;
+  setCurrentTaskId: React.Dispatch<React.SetStateAction<string | null>>;
   taskChange: taskChange;
 };
 const TodoInfo = ({
-  currentTask,
-  setCurrentTask,
+  currentTaskId,
+  setCurrentTaskId,
   taskChange,
+  state,
 }: TodoInfoProps) => {
+  let currentTask: task;
+
+  state.taskList!.forEach((task) => {
+    if (task.id === currentTaskId) currentTask = task;
+  });
+
   const closeClickHandler = () => {
-    setCurrentTask(null);
+    setCurrentTaskId(null);
   };
   const checkClickHandler = () => {
     taskChange.updateTask({ ...currentTask, isComplete: true });
   };
 
-  let description = currentTask.description
-    ? '   ' + currentTask.description
+  let description = currentTask!.description
+    ? '   ' + currentTask!.description
     : '   No Additional Description';
   return (
     <div className="fixed top-0 left-0 h-screen w-screen bg-[#9DECFF]">
@@ -35,14 +46,14 @@ const TodoInfo = ({
           </button>
         </div>
         <p className="mt-2 w-fit rounded-2xl border-2 px-2">Todo List</p>
-        <h1 className="mt-4 text-2xl font-semibold">{currentTask.name}</h1>
+        <h1 className="mt-4 text-2xl font-semibold">{currentTask!.name}</h1>
         <p className="mt-8 text-gray">Additional Description</p>
         <p className="pl-4">
-          {currentTask.description || 'No Additional Description'}
+          {currentTask!.description || 'No Additional Description'}
         </p>
         <p className="text-gray">Created</p>
-        <p className="pl-4">{currentTask.time}</p>
-        {!currentTask.isComplete ? (
+        <p className="pl-4">{currentTask!.time}</p>
+        {!currentTask!.isComplete ? (
           <button
             onClick={checkClickHandler}
             className="fixed bottom-[10rem] left-0 right-0 mx-auto w-fit rounded-full bg-[black] bg-opacity-10 p-8 text-4xl hover:bg-opacity-20"

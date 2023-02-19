@@ -11,8 +11,8 @@ const App = () => {
   const {
     taskChange,
     showAddTask,
-    currentTask,
-    setCurrentTask,
+    currentTaskId,
+    setCurrentTaskId,
     addTask,
     deleteTask,
     updateTask,
@@ -34,7 +34,7 @@ const App = () => {
             changeFilter={changeFilter}
             updateTask={updateTask}
             deleteTask={deleteTask}
-            setCurrentTask={setCurrentTask}
+            setCurrentTaskId={setCurrentTaskId}
           />
         </>
       ) : null}
@@ -47,11 +47,12 @@ const App = () => {
       {showAddTask ? (
         <AddTask addTask={addTask} flipAddTask={flipAddTask} />
       ) : null}
-      {currentTask ? (
+      {currentTaskId ? (
         <TodoInfo
+          state={state}
           taskChange={taskChange}
-          currentTask={currentTask}
-          setCurrentTask={setCurrentTask}
+          currentTaskId={currentTaskId}
+          setCurrentTaskId={setCurrentTaskId}
         />
       ) : null}
     </div>

@@ -9,7 +9,7 @@ type Props = {
   changeFilter: (type: 'all' | 'active') => void;
   updateTask: (updatedTask: task) => Promise<void>;
   deleteTask: (taskId: taskId) => void;
-  setCurrentTask: React.Dispatch<React.SetStateAction<task | null>>;
+  setCurrentTaskId: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
 const Tasklist = ({
@@ -18,7 +18,7 @@ const Tasklist = ({
   updateTask,
   deleteTask,
   changeFilter,
-  setCurrentTask,
+  setCurrentTaskId,
 }: Props) => {
   let enabled = 'bg-primary text-[black] rounded-full p-2 box-border';
   let disabled = 'bg-[#0e1621] text-[white] rounded-full p-2 box-border';
@@ -62,7 +62,7 @@ const Tasklist = ({
       <div className="flex h-full flex-grow-0 flex-col gap-4 overflow-auto">
         {filteredTasks!.map((task) => (
           <Task
-            setCurrentTask={setCurrentTask}
+            setCurrentTaskId={setCurrentTaskId}
             key={task.id}
             task={task}
             updateTask={updateTask}

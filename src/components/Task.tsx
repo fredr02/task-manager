@@ -8,12 +8,12 @@ type Props = {
   task: task;
   updateTask: (updatedTask: task) => Promise<void>;
   deleteTask: (taskId: taskId) => void;
-  setCurrentTask: React.Dispatch<React.SetStateAction<task | null>>;
+  setCurrentTaskId: React.Dispatch<React.SetStateAction<string | null>>;
 };
-const Task = ({ task, updateTask, deleteTask, setCurrentTask }: Props) => {
+const Task = ({ task, updateTask, deleteTask, setCurrentTaskId }: Props) => {
   const taskClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target !== e.currentTarget) return;
-    setCurrentTask(task);
+    setCurrentTaskId(task.id);
   };
   return (
     <div
