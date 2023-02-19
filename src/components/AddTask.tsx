@@ -52,9 +52,7 @@ const AddTask = ({ flipAddTask, addTask }: AddTaskProps) => {
             ref={descriptionInput}
             placeholder="Description"
             className="mt-2 h-[8rem] w-full rounded border p-4"
-          >
-            asfd
-          </textarea>
+          ></textarea>
 
           <input
             type="submit"

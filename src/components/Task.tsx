@@ -12,7 +12,7 @@ type Props = {
 const Task = ({ task, updateTask, deleteTask }: Props) => {
   return (
     <div
-      className={`flex min-h-[50px] cursor-pointer items-center justify-between rounded-3xl bg-primary p-3 ${
+      className={`flex min-h-min cursor-pointer items-center justify-between rounded-3xl bg-primary p-3 ${
         task.isComplete && 'bg-opacity-30'
       }`}
     >

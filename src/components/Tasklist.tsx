@@ -57,7 +57,7 @@ const Tasklist = ({
         </div>
       </div>
       <hr className="border-white"></hr>
-      <div className="flex h-full flex-col gap-4 overflow-auto">
+      <div className="flex h-full flex-grow-0 flex-col gap-4 overflow-auto">
         {filteredTasks!.map((task) => (
           <Task
             key={task.id}
