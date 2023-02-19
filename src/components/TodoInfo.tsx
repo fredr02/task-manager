@@ -35,6 +35,10 @@ const TodoInfo = ({
     if (e.target.value != '')
       taskChange.updateTask({ ...currentTask, name: e.target.value });
   };
+  const changeDescription = (e: React.FocusEvent<HTMLTextAreaElement>) => {
+    if (e.target.value != '')
+      taskChange.updateTask({ ...currentTask, description: e.target.value });
+  };
 
   let description = currentTask!.description
     ? '   ' + currentTask!.description
@@ -52,20 +56,24 @@ const TodoInfo = ({
         </div>
         <p className="mt-2 w-fit rounded-2xl border-2 px-2">Todo List</p>
         <input
-          className=" mt-4 bg-[#9DECFF] text-2xl font-semibold"
+          className="mt-4 rounded border bg-[#9DECFF] p-1 text-2xl font-semibold"
           defaultValue={currentTask!.name}
           onBlur={changeName}
         ></input>
         <p className="mt-8 text-gray">Additional Description</p>
-        <p className="pl-4">
-          {currentTask!.description || 'No Additional Description'}
-        </p>
-        <p className="text-gray">Created</p>
+        <textarea
+          onBlur={changeDescription}
+          className="rounded border bg-[#9DECFF] p-1 pl-3"
+          placeholder="No Additional Description"
+        >
+          {currentTask!.description || ''}
+        </textarea>
+        <p className="mt-8 text-gray">Created</p>
         <p className="pl-4">{currentTask!.time}</p>
         {!currentTask!.isComplete ? (
           <button
             onClick={checkClickHandler}
-            className="fixed bottom-[10rem] left-0 right-0 mx-auto w-fit rounded-full bg-[black] bg-opacity-10 p-8 text-4xl hover:bg-opacity-20"
+            className="fixed bottom-[5%] left-0 right-0 mx-auto w-fit rounded-full bg-[black] bg-opacity-10 p-8 text-4xl hover:bg-opacity-20"
           >
             {<FiCheck />}
           </button>
