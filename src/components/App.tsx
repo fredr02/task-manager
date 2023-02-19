@@ -5,10 +5,13 @@ import Header from './Header';
 import Tasklist from './Tasklist';
 import Loading from './Loading';
 import { MdAddTask } from 'react-icons/md';
+import TodoInfo from './TodoInfo';
 
 const App = () => {
   const {
     showAddTask,
+    currentTask,
+    setCurrentTask,
     addTask,
     deleteTask,
     updateTask,
@@ -30,6 +33,7 @@ const App = () => {
             changeFilter={changeFilter}
             updateTask={updateTask}
             deleteTask={deleteTask}
+            setCurrentTask={setCurrentTask}
           />
         </>
       ) : null}
@@ -41,6 +45,9 @@ const App = () => {
       </button>
       {showAddTask ? (
         <AddTask addTask={addTask} flipAddTask={flipAddTask} />
+      ) : null}
+      {currentTask ? (
+        <TodoInfo currentTask={currentTask} setCurrentTask={setCurrentTask} />
       ) : null}
     </div>
   );

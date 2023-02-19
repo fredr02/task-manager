@@ -7,6 +7,8 @@ export type task = {
   id: taskId;
   name: string;
   isComplete: boolean;
+  description: string;
+  time: string;
 };
 
 export type taskId = string;

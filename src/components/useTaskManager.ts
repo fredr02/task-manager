@@ -14,6 +14,7 @@ import {
 const useTaskManager = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [showAddTask, setShowAddTask] = useState(false);
+  const [currentTask, setCurrentTask] = useState<task | null>(null);
   const [taskList, setTaskList] = useState<task[]>();
   const [filter, setFilter] = useState<'all' | 'active'>('all');
 
@@ -84,6 +85,8 @@ const useTaskManager = () => {
     flipAddTask,
     isLoading,
     state,
+    currentTask,
+    setCurrentTask,
   };
 };
 

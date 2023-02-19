@@ -19,7 +19,7 @@ const AddTask = ({ flipAddTask, addTask }: AddTaskProps) => {
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const currentDateString = new Date();
+    const currentDateString = new Date().toLocaleDateString();
 
     const taskInputValue = taskInput.current!.value;
     const descriptionInputValue = descriptionInput.current!.value;

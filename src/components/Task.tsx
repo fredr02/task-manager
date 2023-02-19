@@ -8,10 +8,16 @@ type Props = {
   task: task;
   updateTask: (updatedTask: task) => Promise<void>;
   deleteTask: (taskId: taskId) => void;
+  setCurrentTask: React.Dispatch<React.SetStateAction<task>>;
 };
-const Task = ({ task, updateTask, deleteTask }: Props) => {
+const Task = ({ task, updateTask, deleteTask, setCurrentTask }: Props) => {
+  const taskClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target !== e.currentTarget) return;
+    setCurrentTask(task);
+  };
   return (
     <div
+      onClick={taskClickHandler}
       className={`flex min-h-min cursor-pointer items-center justify-between rounded-3xl bg-primary p-3 ${
         task.isComplete && 'bg-opacity-30'
       }`}
