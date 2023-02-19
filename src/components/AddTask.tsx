@@ -13,19 +13,22 @@ type AddTaskProps = {
 };
 
 const AddTask = ({ flipAddTask, addTask }: AddTaskProps) => {
-  const inputName = useRef<HTMLInputElement>(null);
+  const taskInput = useRef<HTMLInputElement>(null);
+  const descriptionInput = useRef<HTMLTextAreaElement>(null);
 
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (inputName.current!.value) {
+    if (taskInput.current!.value) {
       addDoc(collection(db, 'todos'), {
-        name: inputName.current!.value,
+        name: taskInput.current!.value,
+        description: descriptionInput.current!.value,
         isComplete: false,
       }).then((docref) => {
         addTask({
           id: docref.id,
-          name: inputName.current!.value,
+          name: taskInput.current!.value,
+          description: descriptionInput.current!.value,
           isComplete: false,
         } as task);
         flipAddTask();
@@ -39,11 +42,20 @@ const AddTask = ({ flipAddTask, addTask }: AddTaskProps) => {
         <form onSubmit={submitHandler}>
           <input
             autoFocus
-            ref={inputName}
+            ref={taskInput}
             placeholder="Task Name"
             className="mt-2 w-full rounded border p-4"
             required
           ></input>
+
+          <textarea
+            ref={descriptionInput}
+            placeholder="Description"
+            className="mt-2 h-[8rem] w-full rounded border p-4"
+          >
+            asfd
+          </textarea>
+
           <input
             type="submit"
             className="mx-auto mt-4 block cursor-pointer rounded-2xl bg-primary p-3 px-6"
