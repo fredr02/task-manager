@@ -23,7 +23,7 @@ const App = () => {
 
       {!isLoading ? (
         <>
-          (<Header tasks={state.taskList!} flipAddTask={flipAddTask} />
+          <Header tasks={state.taskList!} flipAddTask={flipAddTask} />
           <Tasklist
             originalTasks={state.taskList!}
             filter={state.filter}
