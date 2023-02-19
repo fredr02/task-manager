@@ -5,8 +5,11 @@ type ModalCardProps = {
 };
 const ModalCard = (props: ModalCardProps) => {
   return (
-    <div className="tex-white absolute top-0 left-0 flex h-full w-full items-center justify-around">
-      <div className="relative rounded-xl bg-white p-4">{props.children}</div>
+    <div className="fixed top-0 left-0 flex h-full w-screen items-center justify-around">
+      <div className="fixed top-0 left-0 h-full w-screen bg-[#000] opacity-70"></div>
+      <div className="relative w-[24rem] rounded-xl bg-white p-4 opacity-100 md:w-[32rem]">
+        {props.children}
+      </div>
     </div>
   );
 };

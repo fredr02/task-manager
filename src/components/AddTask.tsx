@@ -1,5 +1,5 @@
 import React, { SetStateAction, useRef } from 'react';
-import { AiOutlineClose } from 'react-icons/ai';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 import ModalCard from './ModalCard';
 
 import { collection, addDoc, doc } from 'firebase/firestore';
@@ -35,23 +35,26 @@ const AddTask = ({ flipAddTask, addTask }: AddTaskProps) => {
   return (
     <ModalCard>
       <>
-        <h1 className="text-lg">Add Task</h1>
+        <h1 className="text-2xl">Add Task</h1>
         <form onSubmit={submitHandler}>
           <input
             autoFocus
             ref={inputName}
-            placeholder="Todo Name"
-            className="rounded p-4"
+            placeholder="Task Name"
+            className="mt-2 w-full rounded border p-4"
             required
           ></input>
           <input
             type="submit"
-            className="mx-auto mt-6 block cursor-pointer rounded-2xl bg-primary p-3"
+            className="mx-auto mt-4 block cursor-pointer rounded-2xl bg-primary p-3 px-6"
           ></input>
         </form>
 
-        <button onClick={flipAddTask} className="absolute top-2 right-2">
-          <AiOutlineClose />
+        <button
+          onClick={flipAddTask}
+          className=" absolute top-2 right-2 flex items-center justify-around text-3xl"
+        >
+          <AiOutlineCloseCircle />
         </button>
       </>
     </ModalCard>
