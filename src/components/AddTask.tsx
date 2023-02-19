@@ -22,6 +22,7 @@ const AddTask = ({ flipAddTask, addTask }: AddTaskProps) => {
     const currentDateString = new Date();
 
     if (taskInput.current!.value) {
+      flipAddTask();
       addDoc(collection(db, 'todos'), {
         name: taskInput.current!.value,
         description: descriptionInput.current!.value,
@@ -35,7 +36,6 @@ const AddTask = ({ flipAddTask, addTask }: AddTaskProps) => {
           time: currentDateString,
           isComplete: false,
         } as task);
-        flipAddTask();
       });
     }
   };
