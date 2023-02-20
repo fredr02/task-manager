@@ -1,6 +1,4 @@
 import useTaskManager from './useTaskManager';
-import AuthContextWrapper, { AuthContext } from './AuthContext';
-import { useContext } from 'react';
 
 import AddTask from './AddTask';
 import Header from './Header';
@@ -8,8 +6,6 @@ import Tasklist from './Tasklist';
 import Loading from './Loading';
 import { MdAddTask } from 'react-icons/md';
 import TodoInfo from './TodoInfo';
-import Login from './Login';
-import { Navigate } from 'react-router-dom';
 
 const App = () => {
   const {
@@ -26,8 +22,6 @@ const App = () => {
     state,
   } = useTaskManager();
 
-  const user = useContext(AuthContext);
-  console.log(user);
   return (
     <div className="relative mx-4 flex h-screen max-w-md flex-col pt-4 sm:mx-auto">
       {isLoading ? <Loading /> : null}

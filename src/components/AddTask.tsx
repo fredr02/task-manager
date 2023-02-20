@@ -1,9 +1,11 @@
-import React, { SetStateAction, useRef } from 'react';
+import React, { useRef, useContext } from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import ModalCard from './ModalCard';
 
-import { collection, addDoc, doc } from 'firebase/firestore';
-import { db, app } from '../firebase';
+import { AuthContext } from './AuthContext';
+
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 
 import { task } from '../types';
 
@@ -15,6 +17,7 @@ type AddTaskProps = {
 const AddTask = ({ flipAddTask, addTask }: AddTaskProps) => {
   const taskInput = useRef<HTMLInputElement>(null);
   const descriptionInput = useRef<HTMLTextAreaElement>(null);
+  const user = useContext(AuthContext);
 
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,7 +29,7 @@ const AddTask = ({ flipAddTask, addTask }: AddTaskProps) => {
 
     if (taskInputValue) {
       flipAddTask();
-      addDoc(collection(db, 'todos'), {
+      addDoc(collection(db, `users/${user?.uid}/todos`), {
         name: taskInputValue,
         description: descriptionInputValue,
         time: currentDateString,

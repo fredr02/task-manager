@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useReducer } from 'react';
-import { task, appState, taskId } from '../types';
+import { useEffect, useState, useContext } from 'react';
+import { task, taskId } from '../types';
+import { AuthContext } from './AuthContext';
 
 import { db } from '../firebase';
 
@@ -21,13 +22,17 @@ const useTaskManager = () => {
   const flipAddTask = () => {
     setShowAddTask((p) => !p);
   };
+  const user = useContext(AuthContext);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [user]);
 
   const fetchData = async () => {
-    const querySnapshot = await getDocs(collection(db, 'todos'));
+    const querySnapshot = await getDocs(
+      collection(db, `users/${user?.uid}/todos`)
+    );
+    console.log(querySnapshot);
     const docsArray = querySnapshot.docs;
     let tasks: task[] = [] as task[];
     docsArray.forEach((doc) => {
@@ -41,10 +46,9 @@ const useTaskManager = () => {
     setTaskList((p) => {
       return [...(p as task[]), task];
     });
-    console.log(taskList);
   };
   const updateTask = async (updatedTask: task) => {
-    const docRef = doc(db, 'todos', updatedTask.id);
+    const docRef = doc(db, `users/${user?.uid}/todos`, updatedTask.id);
     updateDoc(docRef, { ...updatedTask });
 
     setTaskList((p) => {
@@ -56,7 +60,7 @@ const useTaskManager = () => {
   };
 
   const deleteTask = (taskId: taskId) => {
-    const docRef = doc(db, 'todos', taskId);
+    const docRef = doc(db, `users/${user?.uid}/todos`, taskId);
     deleteDoc(docRef);
 
     setTaskList((p) =>

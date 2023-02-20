@@ -1,6 +1,5 @@
 import { User } from 'firebase/auth';
-import React, { createContext, useEffect, useState } from 'react';
-import { JsxElement } from 'typescript';
+import { createContext, useEffect, useState } from 'react';
 import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
