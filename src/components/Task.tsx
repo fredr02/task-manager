@@ -12,8 +12,16 @@ type Props = {
 };
 const Task = ({ task, updateTask, deleteTask, setCurrentTaskId }: Props) => {
   const taskClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target !== e.currentTarget) return;
     setCurrentTaskId(task.id);
+  };
+
+  const completeTaskHandler = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    updateTask({ ...task, isComplete: true });
+  };
+  const deleteteTaskHandler = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    deleteTask(task.id);
   };
   return (
     <div
@@ -25,7 +33,7 @@ const Task = ({ task, updateTask, deleteTask, setCurrentTaskId }: Props) => {
       <h1 className="text-xl font-light">{task.name}</h1>
       {!task.isComplete && (
         <button
-          onClick={() => updateTask({ ...task, isComplete: true })}
+          onClick={completeTaskHandler}
           className="rounded-full bg-[black] bg-opacity-10 p-3 hover:bg-opacity-20"
         >
           {<FiCheck />}
@@ -33,7 +41,7 @@ const Task = ({ task, updateTask, deleteTask, setCurrentTaskId }: Props) => {
       )}
       {task.isComplete && (
         <button
-          onClick={() => deleteTask(task.id)}
+          onClick={deleteteTaskHandler}
           className="rounded-full bg-[black] bg-opacity-10 p-3 hover:bg-opacity-20"
         >
           <BiTrash />
