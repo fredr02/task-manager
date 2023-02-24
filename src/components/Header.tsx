@@ -1,7 +1,10 @@
 import React from 'react';
 import { task } from '../types';
+import { signOut } from 'firebase/auth';
 
 import { MdAddTask } from 'react-icons/md';
+import { FiLogOut } from 'react-icons/fi';
+import { auth } from '../firebase';
 
 type Props = {
   tasks: task[];
@@ -46,6 +49,9 @@ const Header = ({ tasks, flipAddTask }: Props) => {
     task.isComplete == true && (completeCount += 1);
   });
 
+  const logout = () => {
+    signOut(auth);
+  };
   return (
     <div className="flex flex-col">
       <div className="flex flex-row justify-between">
@@ -65,6 +71,12 @@ const Header = ({ tasks, flipAddTask }: Props) => {
           className="m-3 flex h-12 w-12 items-center justify-around rounded-full bg-[#172841] p-3 text-white hover:bg-[#283951]"
         >
           <MdAddTask />
+        </button>
+        <button
+          onClick={logout}
+          className="m-3 flex h-12 w-12 items-center justify-around rounded-full bg-[#172841] p-3 text-white hover:bg-[#283951]"
+        >
+          <FiLogOut />
         </button>
       </div>
       <div className="mt-5 flex justify-between">
