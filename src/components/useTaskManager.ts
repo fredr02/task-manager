@@ -26,6 +26,11 @@ const useTaskManager = () => {
 
   useEffect(() => {
     fetchData();
+  }),
+    [];
+
+  useEffect(() => {
+    fetchData();
   }, [user]);
 
   const fetchData = async () => {
