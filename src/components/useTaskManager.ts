@@ -25,12 +25,7 @@ const useTaskManager = () => {
   const user = useContext(AuthContext);
 
   useEffect(() => {
-    fetchData();
-  }),
-    [];
-
-  useEffect(() => {
-    fetchData();
+    if (user) fetchData();
   }, [user]);
 
   const fetchData = async () => {

@@ -16,6 +16,7 @@ const AuthContextWrapper = ({ children }: AuthContextWrapperProps) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
+        console.log('set user signed in');
         setUser(user);
         navigate('/');
       } else {
