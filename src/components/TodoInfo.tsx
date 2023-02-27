@@ -39,7 +39,7 @@ const TodoInfo = ({
       taskChange.updateTask({ ...currentTask, name: e.target.value });
   };
   const changeDescription = (e: React.FocusEvent<HTMLTextAreaElement>) => {
-    if (e.target.value != '')
+    if (currentTask.description != e.target.value)
       taskChange.updateTask({ ...currentTask, description: e.target.value });
   };
 
