@@ -70,7 +70,7 @@ const TodoInfo = ({
             {<BsCheck />}
           </button>
           <input
-            className="ml-2 w-auto flex-1 rounded border bg-[#9DECFF] p-1 text-2xl font-semibold"
+            className="ml-2 w-auto flex-1 rounded bg-[#000] bg-opacity-10 p-1 pl-2 text-2xl font-semibold"
             defaultValue={currentTask!.name}
             onBlur={changeName}
           ></input>
@@ -79,10 +79,11 @@ const TodoInfo = ({
         <p className="mt-4 text-gray">Additional Description</p>
         <textarea
           onBlur={changeDescription}
-          className="rounded border bg-[#9DECFF] p-1 pl-3"
+          className="rounded bg-[#000] bg-opacity-10 p-1 pl-3"
           placeholder="No Additional Description"
-          value={currentTask!.description || ''}
-        ></textarea>
+        >
+          {currentTask!.description || ''}
+        </textarea>
         <p className="mt-8 text-gray">Created</p>
         <p className="pl-4">{currentTask!.time}</p>
       </div>
