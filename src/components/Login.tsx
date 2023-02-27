@@ -4,6 +4,8 @@ import { auth } from '../firebase';
 
 import { useNavigate } from 'react-router-dom';
 
+import logo from '../assets/logo.png';
+
 const Login = () => {
   const emailField = useRef<HTMLInputElement>(null!);
   const passwordField = useRef<HTMLInputElement>(null!);
@@ -27,7 +29,8 @@ const Login = () => {
   };
   return (
     <div className="relative mx-4 mt-10 flex h-screen max-w-md flex-col pt-4 sm:mx-auto">
-      <h1 className="text-center text-4xl text-white">
+      <img src={logo} />
+      <h1 className="mt-8 text-center text-4xl text-white">
         Welcome, Please Log in
       </h1>
       <form onSubmit={logInHandler}>
