@@ -8,6 +8,10 @@ import { MdAddTask } from 'react-icons/md';
 import TodoInfo from './TodoInfo';
 
 const App = () => {
+  // Now why are we exporting so many methods? this is very unclean
+
+  // Database modifications are currently declared in the app component but it's something that needs to be used appwide therefore causing lots of props to be passed down? Can we extract this?
+
   const {
     taskChange,
     showAddTask,
@@ -23,7 +27,9 @@ const App = () => {
   } = useTaskManager();
 
   return (
+    //This can be abstracted to a component and reused
     <div className="relative mx-4 flex h-screen max-w-md flex-col pt-4 sm:mx-auto">
+      {/* This is less important - But instead of rendering another component can we render the orignal component and have loading spinners wherever the data is neededed?*/}
       {isLoading ? <Loading /> : null}
 
       {!isLoading ? (
